@@ -39,13 +39,13 @@ Response Body (Failed) :
 
 ```json
 {
-  "errors" : "Validation Error : ..."
+  "errors" : "name must not blank, ..."
 }
 ```
 
 ## Get Product
 
-Endpoint : GET /api/products/:id
+Endpoint : GET /api/products/:productId
 
 Response Body (Success) :
 
@@ -69,13 +69,13 @@ Response Body (Failed) :
 
 ```json
 {
-  "errors" : "Product not found"
+  "errors" : "Product is not found"
 }
 ```
 
 ## Update Product
 
-Endpoint : PUT /api/products/:id
+Endpoint : PUT /api/products/:productId
 
 Request Body :
 
@@ -90,11 +90,35 @@ Request Body :
 }
 ```
 
-Response Body (Success) : sama seperti Create Product.
+Response Body (Success) :
+
+```json
+{
+  "data" : {
+    "id" : 1,
+    "name" : "Kopi Gula Aren",
+    "category" : "Minuman",
+    "description" : "Kopi susu gula aren",
+    "buyPrice" : 8000,
+    "sellPrice" : 12000,
+    "stock" : 20,
+    "createdAt" : "2026-11-19T01:00:00.000Z",
+    "updatedAt" : "2026-11-19T01:00:00.000Z"
+  }
+}
+```
+
+Response Body (Failed) :
+
+```json
+{
+  "errors" : "name must not blank, ..."
+}
+```
 
 ## Remove Product
 
-Endpoint : DELETE /api/products/:id
+Endpoint : DELETE /api/products/:productId
 
 Response Body (Success) :
 
@@ -104,9 +128,23 @@ Response Body (Success) :
 }
 ```
 
+Response Body (Failed) :
+
+```json
+{
+  "errors" : "Product is not found"
+}
+```
+
 ## Search Product
 
-Endpoint : GET /api/products?name=Kopi&category=Minuman&page=1&size=10
+Endpoint : GET /api/products
+
+Query Parameter :
+- name : string, product name, optional
+- category : string, product category, optional
+- page : number, default 1
+- size : number, default 10
 
 Response Body (Success) :
 
@@ -123,11 +161,22 @@ Response Body (Success) :
       "stock" : 20,
       "createdAt" : "2026-11-19T01:00:00.000Z",
       "updatedAt" : "2026-11-19T01:00:00.000Z"
+    },
+    {
+      "id" : 2,
+      "name" : "Kopi Gula Aren",
+      "category" : "Minuman",
+      "description" : "Kopi susu gula aren",
+      "buyPrice" : 8000,
+      "sellPrice" : 10000,
+      "stock" : 20,
+      "createdAt" : "2026-11-19T01:00:00.000Z",
+      "updatedAt" : "2026-11-19T01:00:00.000Z"
     }
   ],
   "paging" : {
     "current_page" : 1,
-    "total_page" : 1,
+    "total_page" : 10,
     "size" : 10
   }
 }
