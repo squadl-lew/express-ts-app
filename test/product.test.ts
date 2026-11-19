@@ -314,4 +314,22 @@ describe('GET /api/products', () => {
         expect(response.body.paging.total_page).toBe(1);
         expect(response.body.paging.size).toBe(1);
     });
+
+    it('should be able to search product with empty name and category (FE mengirim name=&category=)', async () => {
+        const response = await supertest(web)
+            .get("/api/products")
+            .query({
+                name: "",
+                category: "",
+                page: 1,
+                size: 5
+            });
+
+        logger.debug(response.body);
+        expect(response.status).toBe(200);
+        expect(response.body.data.length).toBe(1);
+        expect(response.body.paging.current_page).toBe(1);
+        expect(response.body.paging.total_page).toBe(1);
+        expect(response.body.paging.size).toBe(5);
+    });
 });

@@ -62,8 +62,8 @@ export class ProductController {
     static async search(req: Request, res: Response, next: NextFunction) {
         try {
             const request: SearchProductRequest = {
-                name: req.query.name as string,
-                category: req.query.category as string,
+                ...(req.query.name ? { name: req.query.name as string } : {}),
+                ...(req.query.category ? { category: req.query.category as string } : {}),
                 page: req.query.page ? Number(req.query.page) : 1,
                 size: req.query.size ? Number(req.query.size) : 10,
             };
